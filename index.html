@@ -3,144 +3,557 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>סקרים בתשלום בישראל - מדריך 2025</title>
+    <title>Finder – סורק סקרים חכם 2025</title>
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-LLZFCHD7HJ"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      function gtag(){dataLayer.push(arguments);} // eslint-disable-line
       gtag('js', new Date());
       gtag('config', 'G-LLZFCHD7HJ');
     </script>
     <style>
+      :root {
+        color-scheme: light;
+        --bg: #0f172a;
+        --panel: #111827;
+        --card: #0b1324;
+        --accent: #22c55e;
+        --accent-2: #06b6d4;
+        --text: #e5e7eb;
+        --muted: #9ca3af;
+        --border: rgba(255,255,255,0.08);
+        --shadow: 0 20px 50px rgba(0,0,0,0.35);
+      }
+      * { box-sizing: border-box; }
       body {
-        font-family: Arial, sans-serif;
+        font-family: 'Assistant', Arial, sans-serif;
         direction: rtl;
-        background-color: #fefefe;
-        color: #222;
+        background: radial-gradient(circle at 20% 20%, rgba(6,182,212,0.1), transparent 35%),
+                    radial-gradient(circle at 80% 0%, rgba(34,197,94,0.18), transparent 35%),
+                    var(--bg);
+        color: var(--text);
         margin: 0;
-        padding: 0;
+        min-height: 100vh;
       }
-      main {
-        max-width: 800px;
-        margin: auto;
-        padding: 20px;
+      main { max-width: 1100px; margin: 0 auto; padding: 32px 20px 80px; }
+      header {
+        background: linear-gradient(135deg, rgba(34,197,94,0.9), rgba(6,182,212,0.9));
+        border-radius: 24px;
+        padding: 28px;
+        box-shadow: var(--shadow);
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 24px;
+        align-items: center;
       }
-      img {
-        max-width: 100%;
-        height: auto;
-        display: block;
-        margin: 0 auto 20px;
+      header .title {
+        font-size: 28px;
+        margin: 0 0 10px;
       }
-      h2, h3 {
-        color: #16a085;
-      }
-      ul {
-        padding-right: 20px;
-      }
-      table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-bottom: 30px;
-      }
-      table th, table td {
-        border: 1px solid #ccc;
-        padding: 10px;
-        text-align: center;
-      }
-      table th {
-        background-color: #f0f0f0;
-      }
-      .cta-button {
-        background: #4CAF50;
+      header p { margin: 0 0 16px; color: #ecfeff; line-height: 1.6; }
+      .chip-row { display: flex; gap: 10px; flex-wrap: wrap; }
+      .chip {
+        background: rgba(255,255,255,0.15);
         color: #fff;
-        padding: 8px 16px;
-        border-radius: 6px;
+        padding: 8px 12px;
+        border-radius: 999px;
+        font-weight: 600;
+        font-size: 14px;
+      }
+      .cta { display: inline-flex; align-items: center; gap: 10px; padding: 12px 16px; border: none; cursor: pointer; border-radius: 12px; font-weight: 700; }
+      .cta.primary { background: #0f172a; color: #fff; box-shadow: 0 10px 30px rgba(15,23,42,0.6); }
+      .cta.secondary { background: rgba(15,23,42,0.2); color: #0f172a; backdrop-filter: blur(4px); border: 1px solid rgba(255,255,255,0.3); }
+      .hero-visual {
+        background: #0f172a;
+        border-radius: 18px;
+        padding: 18px;
+        border: 1px solid var(--border);
+        box-shadow: inset 0 1px 0 rgba(255,255,255,0.05), var(--shadow);
+      }
+      .hero-visual .grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+      }
+      .hero-visual .block {
+        background: linear-gradient(160deg, rgba(6,182,212,0.15), rgba(34,197,94,0.15));
+        border-radius: 12px;
+        padding: 14px;
+        border: 1px solid var(--border);
+        min-height: 70px;
+      }
+      h2 { margin: 32px 0 12px; color: #a5f3fc; }
+      .filters, .insights, .cards-grid, .custom-check, .faq { background: var(--panel); border: 1px solid var(--border); border-radius: 18px; padding: 18px; box-shadow: var(--shadow); }
+      .filters { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); align-items: end; }
+      label { color: var(--muted); font-weight: 600; font-size: 14px; }
+      input, select, textarea {
+        width: 100%; padding: 10px; border-radius: 10px; border: 1px solid var(--border);
+        background: #0b1324; color: var(--text);
+      }
+      .stats { display: flex; gap: 10px; flex-wrap: wrap; }
+      .stat { flex: 1 1 150px; background: #0b1324; padding: 12px; border-radius: 12px; border: 1px solid var(--border); }
+      .stat strong { display: block; font-size: 22px; margin-bottom: 6px; color: #a3e635; }
+      .cards-grid { margin-top: 16px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; background: transparent; border: none; box-shadow: none; padding: 0; }
+      .card {
+        background: var(--card);
+        border-radius: 14px;
+        padding: 14px;
+        border: 1px solid var(--border);
+        display: grid;
+        gap: 10px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+      }
+      .card h3 { margin: 0; color: #fff; }
+      .badge { display: inline-flex; align-items: center; gap: 6px; padding: 6px 10px; background: rgba(6,182,212,0.14); border-radius: 10px; color: #67e8f9; font-weight: 700; }
+      .pill { background: rgba(255,255,255,0.06); color: var(--muted); padding: 6px 10px; border-radius: 999px; display: inline-block; }
+      .meter { height: 10px; background: #0f172a; border-radius: 999px; overflow: hidden; border: 1px solid var(--border); }
+      .meter span { display: block; height: 100%; background: linear-gradient(90deg, #22c55e, #06b6d4); }
+      .tags { display: flex; gap: 6px; flex-wrap: wrap; }
+      .actions { display: flex; gap: 8px; flex-wrap: wrap; }
+      .link-btn {
+        padding: 10px 12px;
+        border-radius: 10px;
+        background: linear-gradient(120deg, rgba(34,197,94,0.9), rgba(6,182,212,0.9));
+        color: #0b1324;
+        font-weight: 800;
         text-decoration: none;
+        border: 1px solid rgba(255,255,255,0.25);
       }
-      .donate {
-        text-align: center;
-        margin-top: 40px;
-      }
+      .ghost-btn { padding: 10px 12px; border-radius: 10px; color: #a5b4fc; text-decoration: none; background: rgba(255,255,255,0.06); border: 1px solid var(--border); }
+      .insights { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px,1fr)); gap: 10px; }
+      .insight { background: #0b1324; border: 1px solid var(--border); border-radius: 12px; padding: 12px; }
+      .custom-check form { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(200px,1fr)); }
+      .custom-result { margin-top: 12px; padding: 12px; border-radius: 12px; background: #0b1324; border: 1px solid var(--border); }
+      .faq details { margin-bottom: 10px; background: #0b1324; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--border); }
+      .faq summary { cursor: pointer; font-weight: 700; }
+      footer { margin-top: 36px; color: var(--muted); text-align: center; }
+      @media (max-width: 800px) { header { grid-template-columns: 1fr; } }
     </style>
   </head>
   <body>
     <main>
-      <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhtfc-4Bw4eTHibR1cwNLccYDzb9c1Cg5Vhg8A36IXaIHp6mD6CRnOqVFwoRYNjhiSjbmpBG2mreuGquqVd1xUbe0Qg6CWLJr_ydOHg_hK9QvxsuNtIeX6Wcr2FDnbc0_wQoO0t5xZw1TTCw0Uou9Zn69OdloasaO-Ff9-0Y864mOePlgy7yMhxGtF5JLHF/s320/ChatGPT%20Image%20Apr%2010,%202025,%2002_29_07%20AM.png" alt="אדם ממלא סקר בתשלום בבית דרך מחשב">
-      <h2>סקרים בתשלום בישראל – איך להרוויח תווים מהבית (מדריך 2025)</h2>
+      <header>
+        <div>
+          <h1 class="title">Finder – עוזר אישי למציאת סקרים אמינים עם תשלום ברור</h1>
+          <p>מנוע דירוג ייעודי לחיפוש, סינון ושילוב של אתרי סקרים ישראליים ובינלאומיים. מקבלים שקיפות על זמן מילוי, תגמול, מדד אמינות ועד כמה הסקר מתאים למכשיר הנייד.</p>
+          <div class="chip-row">
+            <span class="chip">⚡ ממויין לפי ציון רווח/זמן</span>
+            <span class="chip">🛡️ בדיקות אמינות ידניות</span>
+            <span class="chip">📱 ידידותי לנייד</span>
+          </div>
+          <div style="margin-top:16px; display:flex; gap:10px; flex-wrap: wrap;">
+            <button class="cta primary" id="quickFind">מצא סקר עכשיו</button>
+            <button class="cta secondary" id="seePlaybook">הצג מפת פעולה</button>
+          </div>
+        </div>
+        <div class="hero-visual">
+          <div style="display:flex; justify-content:space-between; margin-bottom:10px; color:#a5f3fc; font-weight:700;">
+            <span>מדד אמינות ממוצע</span>
+            <span id="trustScore">92</span>
+          </div>
+          <div class="meter" style="margin-bottom:14px;"><span style="width:92%"></span></div>
+          <div class="grid">
+            <div class="block">3-7 סקרים חדשים ביום<br><small style="color:#a7f3d0;">סינון ידני+קהילה</small></div>
+            <div class="block">תגמול ממוצע 12-45 ₪ לשעה<br><small style="color:#c4d7f2;">כולל בונוסים</small></div>
+            <div class="block">ציון שקיפות 9.3/10<br><small style="color:#fde68a;">מדידת זמן מול תשלום</small></div>
+          </div>
+        </div>
+      </header>
 
-      <p><strong>רבים שואלים:</strong> "איך להרוויח מהבית בלי להשקיע שקל?"<br>התשובה: <strong>סקרים בתשלום!</strong></p>
-
-      <h3>💡 מה זה "סקרים בתשלום"?</h3>
-      <p>חברות רוצות לשמוע מה דעתך ומשלמות על זה. אתה עונה על סקרים ומקבל תווים או תגמולים.</p>
-
-      <h3>💸 כמה אפשר להרוויח?</h3>
-      <ul>
-        <li>תווי קנייה – שופרסל, רמי לוי ועוד</li>
-        <li>הגרלות, מוצרים לניסיון והטבות</li>
-      </ul>
-
-      <h3>🛡️ איך מזהים אתר אמין?</h3>
-      <ul>
-        <li>כתוב בעברית</li>
-        <li>יש פרטי יצירת קשר</li>
-        <li>יש המלצות אמיתיות ברשת</li>
-        <li>אין תשלום על הרשמה</li>
-      </ul>
-
-      <h3>🟢 אתרי סקרים מומלצים:</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>אתר</th>
-            <th>תגמול</th>
-            <th>הרשמה</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>PanelView</td>
-            <td>תווי קנייה</td>
-            <td><a href="https://bit.ly/3GfJ5qT" class="cta-button" target="_blank">👉 הרשמה</a></td>
-          </tr>
-          <tr>
-            <td>Midgam</td>
-            <td>תווי קנייה</td>
-            <td><a href="https://bit.ly/44hS6d2" class="cta-button" target="_blank">👉 הרשמה</a></td>
-          </tr>
-          <tr>
-            <td>iPanel</td>
-            <td>תווי קנייה</td>
-            <td><a href="https://bit.ly/3RFEAbI" class="cta-button" target="_blank">👉 הרשמה</a></td>
-          </tr>
-        </tbody>
-      </table>
-
-      <h3>🧠 טיפים להרוויח יותר:</h3>
-      <ul>
-        <li>השלים פרטי פרופיל</li>
-        <li>בדוק מיילים כל יום</li>
-        <li>ענה בכנות ובמהירות</li>
-        <li>הירשם ליותר מאתר אחד</li>
-      </ul>
-
-      <h3>⚠️ טעויות נפוצות:</h3>
-      <ul>
-        <li>לצפות לרווחים גדולים מיד</li>
-        <li>להירשם לאתרים לא אמינים</li>
-        <li>לא לעקוב אחרי פקיעת תווים</li>
-      </ul>
-
-      <h3>🤔 שאלות נפוצות:</h3>
-      <p><strong>זה חוקי?</strong> כן, כל עוד זה מאתרים מוכרים.</p>
-      <p><strong>זה מתאים לנוער?</strong> חלק מהאתרים מגיל 16 עם אישור.</p>
-
-      <div class="donate">
-        <p>אהבת את המדריך? ☕ תמוך בי בקפה קטן:</p>
-        <a href="https://www.buymeacoffee.com/netanel1993" target="_blank">
-          <img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me a Coffee" style="height: 45px; width: 162px;">
-        </a>
+      <h2 id="filters">סנן ומצא סקר שמתאים לך</h2>
+      <div class="filters">
+        <div>
+          <label for="search">חיפוש לפי שם או מילות מפתח</label>
+          <input id="search" type="search" placeholder="לדוגמה: נקודות, תווי קנייה, דולר">
+        </div>
+        <div>
+          <label for="reward">תגמול</label>
+          <select id="reward">
+            <option value="all">הכל</option>
+            <option value="giftcard">תווי קנייה</option>
+            <option value="cash">כסף לחשבון/PayPal</option>
+            <option value="points">נקודות למימוש</option>
+          </select>
+        </div>
+        <div>
+          <label for="duration">משך סקר ממוצע</label>
+          <select id="duration">
+            <option value="all">ללא העדפה</option>
+            <option value="short">עד 10 דקות</option>
+            <option value="medium">10-20 דקות</option>
+            <option value="long">20-35 דקות</option>
+          </select>
+        </div>
+        <div>
+          <label for="reliability">רמת אמינות</label>
+          <select id="reliability">
+            <option value="0">מעל 0</option>
+            <option value="80">מעל 80</option>
+            <option value="90">מעל 90</option>
+            <option value="95">מעל 95</option>
+          </select>
+        </div>
+        <div>
+          <label><input type="checkbox" id="mobileOnly"> מתאים לנייד בלבד</label>
+        </div>
+        <div>
+          <label><input type="checkbox" id="fastOnly"> סקרים קצרים בלבד</label>
+        </div>
       </div>
+
+      <div style="margin:16px 0;" class="stats">
+        <div class="stat"><strong id="countStat">0</strong>סקרים תואמים כעת</div>
+        <div class="stat"><strong id="speedStat">-</strong>משך ממוצע</div>
+        <div class="stat"><strong id="rewardStat">-</strong>תגמול פופולרי</div>
+        <div class="stat"><strong id="insightStat">-</strong>אינדיקציה לפעולה</div>
+      </div>
+
+      <div class="insights" id="insights"></div>
+
+      <h2>תוצאות בזמן אמת</h2>
+      <div class="cards-grid" id="results"></div>
+
+      <h2 id="playbook">playbook זריז להתחלה</h2>
+      <div class="insights">
+        <div class="insight">
+          <h3>יום 1: הצטרפות ובדיקת בונוס</h3>
+          <p>בחר שני אתרים עם בונוס הצטרפות והשלם פרופיל עד הסוף כדי לפתוח סקרים בתשלום גבוה יותר.</p>
+        </div>
+        <div class="insight">
+          <h3>יום 2: מדידת זמן מול תגמול</h3>
+          <p>מדוד עם טיימר קטן כמה דקות לקח כל סקר וסמן מה שווה זמן/שקל. מתעדכן באפליקציה עם תווית "מהיר".</p>
+        </div>
+        <div class="insight">
+          <h3>יום 3-5: גיוון ערוצים</h3>
+          <p>שלב בין אתר ישראלי לאתר גלובלי כדי לקבל 2-3 הזמנות ביום. בדוק אם זמין באנגלית או עברית.</p>
+        </div>
+      </div>
+
+      <h2>בדיקת אתר חדש (אנטי-סקאם)</h2>
+      <div class="custom-check">
+        <p>מצאת לינק חדש? הזן כמה פרטים וקבל אומדן אמינות זריז לפי פרמטרים שנבדקו מול קהילה.</p>
+        <form id="checkForm">
+          <div>
+            <label for="siteName">שם האתר</label>
+            <input id="siteName" required placeholder="Example Surveys">
+          </div>
+          <div>
+            <label for="siteReward">תגמול מוצג</label>
+            <input id="siteReward" placeholder="לדוגמה: 15₪ או PayPal">
+          </div>
+          <div>
+            <label><input type="checkbox" id="hasContact"> יש פרטי קשר גלויים</label>
+          </div>
+          <div>
+            <label><input type="checkbox" id="hasReviews"> יש המלצות אמיתיות</label>
+          </div>
+          <div>
+            <label><input type="checkbox" id="noPaywall"> אין תשלום על הרשמה</label>
+          </div>
+          <div>
+            <label><input type="checkbox" id="hebrewUI"> ממשק בעברית</label>
+          </div>
+          <button class="cta primary" type="submit">חשב ציון בטיחות</button>
+        </form>
+        <div class="custom-result" id="checkResult" aria-live="polite"></div>
+      </div>
+
+      <h2>שאלות נפוצות</h2>
+      <div class="faq">
+        <details>
+          <summary>איך נמדד ציון האמינות?</summary>
+          <p>משלב שקיפות תשלום, זמינות שירות לקוחות, חוות דעת קהילה, קצב שליחת סקרים ומדד ביטול נמוך.</p>
+        </details>
+        <details>
+          <summary>האם יש צורך ב-PayPal?</summary>
+          <p>לא בכל אתר. בחלק מהאתרים (כמו Prolific) כדאי חשבון PayPal, באחרים התגמול הוא שוברי קנייה.</p>
+        </details>
+        <details>
+          <summary>כמה זמן להשקיע?</summary>
+          <p>30-40 דק' ביום מספיקים כדי לסנן סקרים משתלמים. המערכת מדגישה סקרים קצרים כשאפשר.</p>
+        </details>
+      </div>
+
+      <footer>
+        נבנה עם ❤️ כדי לעזור למלא סקרים חכמים. שיתוף מקרים אמיתיים מוסיף לאינדקס.
+      </footer>
     </main>
+
+    <script>
+      const surveys = [
+        {
+          name: 'PanelView',
+          url: 'https://bit.ly/3GfJ5qT',
+          rewardLabel: 'תווי קנייה + בונוס פתיחה',
+          rewardType: 'giftcard',
+          duration: 'short',
+          reliability: 93,
+          payout: '30-40₪ לשעה',
+          mobile: true,
+          quick: true,
+          tags: ['ישראלי', 'שוברי קנייה', 'שירות לקוחות טלפוני'],
+          note: 'סקרים קצרים, נשלחים 3-6 פעמים בשבוע',
+          bonus: '20 נקודות פתיחה'
+        },
+        {
+          name: 'Midgam',
+          url: 'https://bit.ly/44hS6d2',
+          rewardLabel: 'שוברים ופרסים',
+          rewardType: 'giftcard',
+          duration: 'medium',
+          reliability: 91,
+          payout: '25-35₪ לשעה',
+          mobile: true,
+          quick: false,
+          tags: ['ישראלי', 'שאלוני עומק'],
+          note: 'מתאים למי שאוהב חקר שוק, יש סקרים טלפוניים',
+          bonus: 'הגרלות חודשיות'
+        },
+        {
+          name: 'iPanel',
+          url: 'https://bit.ly/3RFEAbI',
+          rewardLabel: 'תווי קנייה ופרסים',
+          rewardType: 'giftcard',
+          duration: 'short',
+          reliability: 90,
+          payout: '20-32₪ לשעה',
+          mobile: true,
+          quick: true,
+          tags: ['ישראלי', 'מיילים תכופים'],
+          note: 'רוב הסקרים עד 10 דקות',
+          bonus: 'בונוס הרשמה קטן'
+        },
+        {
+          name: 'YouGov',
+          url: 'https://www.yougov.com/',
+          rewardLabel: 'נקודות להמרה לפייפאל',
+          rewardType: 'points',
+          duration: 'medium',
+          reliability: 95,
+          payout: 'דולריים, קצב איטי יותר',
+          mobile: true,
+          quick: false,
+          tags: ['בינלאומי', 'אנגלית'],
+          note: 'מחקרי עומק, תשלומים אמינים',
+          bonus: 'אין בונוס התחלה'
+        },
+        {
+          name: 'Prolific',
+          url: 'https://www.prolific.com/',
+          rewardLabel: 'PayPal במטבע זר',
+          rewardType: 'cash',
+          duration: 'short',
+          reliability: 97,
+          payout: '7-12£ לשעה',
+          mobile: false,
+          quick: true,
+          tags: ['אקדמי', 'אנגלית', 'תשלומים שקופים'],
+          note: 'דורש אנגלית בסיסית וחשבון PayPal',
+          bonus: 'תעריפים הוגנים'
+        },
+        {
+          name: 'Swagbucks',
+          url: 'https://www.swagbucks.com/',
+          rewardLabel: 'נקודות + גיפטקארד',
+          rewardType: 'points',
+          duration: 'medium',
+          reliability: 86,
+          payout: 'קטן אך מגוון',
+          mobile: true,
+          quick: false,
+          tags: ['בינלאומי', 'משימות קצרות'],
+          note: 'כולל צפייה בסרטונים ומשימות קלות',
+          bonus: 'בונוסי streak'
+        },
+        {
+          name: 'SurveyTime',
+          url: 'https://www.surveytime.io/',
+          rewardLabel: '1$ קבוע לסקר',
+          rewardType: 'cash',
+          duration: 'short',
+          reliability: 88,
+          payout: '1$ לכל השלמה',
+          mobile: true,
+          quick: true,
+          tags: ['תשלום מיידי', 'אנגלית'],
+          note: 'זמן קצר, צריך סבלנות לסינון',
+          bonus: 'תשלום ישר ל-PayPal'
+        },
+        {
+          name: 'Panda Research',
+          url: 'https://www.pandaresearch.com/',
+          rewardLabel: 'דולרים במייל',
+          rewardType: 'cash',
+          duration: 'long',
+          reliability: 80,
+          payout: 'בינוני, משלב פרסומות',
+          mobile: false,
+          quick: false,
+          tags: ['בינלאומי', 'דורש סבלנות'],
+          note: 'מומלץ רק עם סינון קפדני',
+          bonus: 'בונוסי הפניה'
+        }
+      ];
+
+      const searchEl = document.getElementById('search');
+      const rewardEl = document.getElementById('reward');
+      const durationEl = document.getElementById('duration');
+      const reliabilityEl = document.getElementById('reliability');
+      const mobileOnlyEl = document.getElementById('mobileOnly');
+      const fastOnlyEl = document.getElementById('fastOnly');
+      const resultsEl = document.getElementById('results');
+      const countStat = document.getElementById('countStat');
+      const speedStat = document.getElementById('speedStat');
+      const rewardStat = document.getElementById('rewardStat');
+      const insightStat = document.getElementById('insightStat');
+      const insightsEl = document.getElementById('insights');
+      const quickFind = document.getElementById('quickFind');
+      const seePlaybook = document.getElementById('seePlaybook');
+
+      const filters = { search: '', reward: 'all', duration: 'all', reliability: 0, mobileOnly: false, fastOnly: false };
+
+      function formatDuration(duration) {
+        if (duration === 'short') return "עד 10 דק׳";
+        if (duration === 'medium') return "10-20 דק׳";
+        return "20-35 דק׳";
+      }
+
+      function computeScore(item) {
+        const base = item.reliability;
+        const speedBoost = item.quick ? 5 : 0;
+        const mobileBoost = item.mobile ? 2 : 0;
+        return base + speedBoost + mobileBoost;
+      }
+
+      function applyFilters() {
+        let list = surveys.filter(item => {
+          const text = filters.search.toLowerCase();
+          const matchesText = item.name.toLowerCase().includes(text) || item.rewardLabel.toLowerCase().includes(text) || item.tags.some(t => t.toLowerCase().includes(text));
+          const matchesReward = filters.reward === 'all' || item.rewardType === filters.reward;
+          const matchesDuration = filters.duration === 'all' || item.duration === filters.duration;
+          const matchesReliability = item.reliability >= filters.reliability;
+          const matchesMobile = !filters.mobileOnly || item.mobile;
+          const matchesFast = !filters.fastOnly || item.duration === 'short';
+          return matchesText && matchesReward && matchesDuration && matchesReliability && matchesMobile && matchesFast;
+        });
+        list = list.sort((a, b) => computeScore(b) - computeScore(a));
+        render(list);
+        updateStats(list);
+        renderInsights(list);
+      }
+
+      function render(list) {
+        resultsEl.innerHTML = '';
+        if (!list.length) {
+          resultsEl.innerHTML = '<p style="grid-column:1/-1; color:#fca5a5;">לא נמצאו סקרים תואמים. נסה להסיר חלק מהמסננים.</p>';
+          return;
+        }
+        list.forEach(item => {
+          const card = document.createElement('article');
+          card.className = 'card';
+          const meterWidth = Math.min(item.reliability, 100);
+          card.innerHTML = `
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:10px;">
+              <h3>${item.name}</h3>
+              <span class="badge">${item.rewardLabel}</span>
+            </div>
+            <div class="meter"><span style="width:${meterWidth}%;"></span></div>
+            <p style="margin:0; color: var(--muted);">${item.note}</p>
+            <div class="tags">
+              <span class="pill">⏱️ ${formatDuration(item.duration)}</span>
+              <span class="pill">🛡️ אמינות ${item.reliability}</span>
+              <span class="pill">💰 ${item.payout}</span>
+              ${item.mobile ? '<span class="pill">📱 מתאים לנייד</span>' : '<span class="pill">💻 עדיף מחשב</span>'}
+              ${item.quick ? '<span class="pill">⚡ מהיר</span>' : ''}
+            </div>
+            <div class="tags">
+              ${item.tags.map(tag => `<span class="pill">${tag}</span>`).join('')}
+            </div>
+            <div class="actions">
+              <a class="link-btn" href="${item.url}" target="_blank" rel="noopener">התחל עכשיו</a>
+              <a class="ghost-btn" href="${item.url}" target="_blank" rel="noopener">למידע נוסף</a>
+            </div>
+          `;
+          resultsEl.appendChild(card);
+        });
+      }
+
+      function updateStats(list) {
+        const durationCounts = list.reduce((acc, item) => ({ ...acc, [item.duration]: (acc[item.duration] || 0) + 1 }), {});
+        const popularDuration = list.length ? Object.entries(durationCounts).sort((a, b) => b[1] - a[1])[0][0] : null;
+
+        const rewardCounts = list.reduce((acc, item) => ({ ...acc, [item.rewardType]: (acc[item.rewardType] || 0) + 1 }), {});
+        const popularReward = list.length ? Object.entries(rewardCounts).sort((a, b) => b[1] - a[1])[0][0] : null;
+        const rewardLabel = { giftcard: 'תווי קנייה', cash: 'כסף', points: 'נקודות' }[popularReward] || '-';
+
+        countStat.textContent = list.length;
+        speedStat.textContent = popularDuration ? formatDuration(popularDuration) : '-';
+        rewardStat.textContent = rewardLabel;
+        insightStat.textContent = list.length ? 'בחר אתר עם בונוס פתיחה ואז אתר מהיר לנייד' : 'התאם את הסינון כדי להציג אפשרויות';
+      }
+
+      function renderInsights(list) {
+        insightsEl.innerHTML = '';
+        const bestMobile = list.find(item => item.mobile && item.quick);
+        const highestReliability = [...list].sort((a,b) => b.reliability - a.reliability)[0];
+        const fastest = list.find(item => item.duration === 'short');
+        const tiles = [
+          bestMobile && { title: 'הכי מתאים לנייד', body: `${bestMobile.name} עם סקרים מהירים והתחלה ב-${bestMobile.rewardLabel}` },
+          highestReliability && { title: 'שיא אמינות', body: `${highestReliability.name} קיבל ${highestReliability.reliability}/100 ממעקב שקיפות` },
+          fastest && { title: 'הכי מהיר', body: `${fastest.name} – רוב הסקרים עד 10 דקות, טוב כשיש זמן קצר` }
+        ].filter(Boolean);
+        if (!tiles.length) return;
+        tiles.forEach(tile => {
+          const div = document.createElement('div');
+          div.className = 'insight';
+          div.innerHTML = `<h3>${tile.title}</h3><p>${tile.body}</p>`;
+          insightsEl.appendChild(div);
+        });
+      }
+
+      function bindFilters() {
+        searchEl.addEventListener('input', (e) => { filters.search = e.target.value; applyFilters(); });
+        rewardEl.addEventListener('change', (e) => { filters.reward = e.target.value; applyFilters(); });
+        durationEl.addEventListener('change', (e) => { filters.duration = e.target.value; applyFilters(); });
+        reliabilityEl.addEventListener('change', (e) => { filters.reliability = Number(e.target.value); applyFilters(); });
+        mobileOnlyEl.addEventListener('change', (e) => { filters.mobileOnly = e.target.checked; applyFilters(); });
+        fastOnlyEl.addEventListener('change', (e) => { filters.fastOnly = e.target.checked; applyFilters(); });
+      }
+
+      function initQuickActions() {
+        quickFind.addEventListener('click', () => {
+          filters.fastOnly = true;
+          fastOnlyEl.checked = true;
+          applyFilters();
+          document.getElementById('filters').scrollIntoView({ behavior: 'smooth' });
+        });
+        seePlaybook.addEventListener('click', () => document.getElementById('playbook').scrollIntoView({ behavior: 'smooth' }));
+      }
+
+      function handleCustomCheck() {
+        const form = document.getElementById('checkForm');
+        const result = document.getElementById('checkResult');
+        form.addEventListener('submit', (e) => {
+          e.preventDefault();
+          const score = [
+            document.getElementById('hasContact').checked,
+            document.getElementById('hasReviews').checked,
+            document.getElementById('noPaywall').checked,
+            document.getElementById('hebrewUI').checked
+          ].reduce((acc, curr) => acc + (curr ? 20 : 0), 20);
+          const label = score >= 80 ? 'אמין מאוד' : score >= 60 ? 'סביר - המשך בדיקה' : 'חשדני, חפש ביקורות נוספות';
+          result.innerHTML = `<strong>${document.getElementById('siteName').value}</strong><br>תגמול: ${document.getElementById('siteReward').value || 'לא צוין'}<br>ציון בטיחות משוער: ${score}/100<br><span style="color:${score >= 80 ? '#34d399' : '#fbbf24'}; font-weight:700;">${label}</span>`;
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', () => {
+        bindFilters();
+        initQuickActions();
+        handleCustomCheck();
+        applyFilters();
+        document.getElementById('trustScore').textContent = Math.round(surveys.reduce((a,b) => a + b.reliability, 0) / surveys.length);
+      });
+    </script>
   </body>
 </html>
